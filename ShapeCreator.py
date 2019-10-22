@@ -8,6 +8,26 @@ class shape:
         self.verts.append(v);
     def setRelativitys(self,rel):
         self.relativity.append(rel)
+        
+def Rotate(shape,n):
+    a = math.pi/n
+    for vert in shape.verts:
+        vert[0],vert[2]=vert[0] * math.cos(a) - vert[2] * math.sin(a),vert[2] * math.cos(a) + vert[0] * math.sin(a)
+    return shape
+        
+def CreateXYZ(d):
+    XYZ = shape()
+    
+    XYZ.add([0,0,0])
+    XYZ.add([100,0,0])
+    XYZ.add([0,100,0])
+    XYZ.add([0,0,1*d])
+
+    XYZ.setRelativitys([0,1])
+    XYZ.setRelativitys([0,2])
+    XYZ.setRelativitys([0,3])
+    
+    return XYZ
 
 def CreatePlane():
     Plane = shape()
@@ -157,13 +177,11 @@ def CreateTetrahedron():
 
     return Tetrahedron
 
-def CreateTorus():
+def CreateTorus(n):
 
     Torus = shape()
 
     TorBuf = shape()
-
-    n=32
     
     alpha = math.pi / n * 2
     
