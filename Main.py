@@ -4,13 +4,15 @@ import time
 
 scale = 200
 
+fc=0
+
 sx,sy = 1920,1080
 
 offsetx,offsety=sx/2,sy/2
 
 DotSize=3/2
 
-EyePoint = [20,10,15]
+EyePoint = [1,1,20]
 
 EPToPlaneDist = 10
 
@@ -62,7 +64,11 @@ def drawPerspective(canvas,shape,verts):
         y1 = -(shape.verts[relate[1]][1] - EyePoint[1]) * attitude * (scale /((D*D)/1000))
         
         canvas.create_line(x + offsetx,y + offsety,x1 + offsetx,y1 + offsety,fill='white')
-
+def OnDestroy():
+    print(fc)
+    root.quit()
+    root.destroy()
+    
 Octahedron= SC.CreateOctahedron()
 
 Icosahedron = SC.CreateIcosahedron()
@@ -73,34 +79,30 @@ Plane = SC.CreatePlane()
 
 Tetrahedron = SC.CreateTetrahedron()
 
-Torus = SC.CreateTorus(16)
+Torus = SC.CreateTorus(10)
 
 root=Tk()
 root.geometry("{}x{}".format(sx,sy))
 root.title("3DProject")
+root.protocol ("WM_DELETE_WINDOW",OnDestroy)
 sx=root.winfo_screenwidth()
 sy=root.winfo_screenheight()
 canvas = Canvas(root, width = sx,height = sy,bg="black")
 canvas.pack()
 
 Cicle=True
-
 while Cicle:
+    ft=time.time()
     Torus = SC.Rotate(Torus,60)
     sx=canvas.winfo_width()
     sy=canvas.winfo_height()
     canvas.width=sx
     canvas.height=sy
-    canvas.delete("all")
-    if(EyePoint[2]<50):
-        EyePoint[2]+=0.1
-    if(EyePoint[2]>40):
-        EyePoint[0]-=0.1
-    if(EyePoint[0]<0):
-        EyePoint[1]-=0.1
     offsetx,offsety=sx/2,sy/2
+    while(time.time()-ft<0.02):
+        fc+=1
+    canvas.delete("all")
     drawPerspective(canvas,Torus,False)
     #drawPerspective(canvas,Cube,False)
     drawPerspectiveGrid(canvas)
-    time.sleep(0.001)
     root.update()

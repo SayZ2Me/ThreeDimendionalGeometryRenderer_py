@@ -14,7 +14,17 @@ def Rotate(shape,n):
     for vert in shape.verts:
         vert[0],vert[2]=vert[0] * math.cos(a) - vert[2] * math.sin(a),vert[2] * math.cos(a) + vert[0] * math.sin(a)
     return shape
-        
+
+def CreateLine(x,x1,y):
+    Line = shape()
+    
+    Line.add([x,y,0])
+    Line.add([x1,y,0])
+    
+    Line.setRelativitys([0,1])
+
+    return Line
+    
 def CreateXYZ(d):
     XYZ = shape()
     
@@ -32,10 +42,10 @@ def CreateXYZ(d):
 def CreatePlane():
     Plane = shape()
     
-    Plane.add([1,0,1])
-    Plane.add([1,0,-1])
-    Plane.add([-1,0,-1])
-    Plane.add([-1,0,1])
+    Plane.add([1,0,0])
+    Plane.add([1,0,0])
+    Plane.add([-1,0,0])
+    Plane.add([-1,0,0])
 
     Plane.setRelativitys([0,1])
     Plane.setRelativitys([1,2])
@@ -47,14 +57,14 @@ def CreatePlane():
 def CreateCube():
     Cube = shape()
     
-    Cube.add([-10,-10,-10])
-    Cube.add([-10,-10,10])
-    Cube.add([-10,10,-10])
-    Cube.add([-10,10,10])
-    Cube.add([10,-10,-10])
-    Cube.add([10,-10,10])
-    Cube.add([10,10,-10])
-    Cube.add([10,10,10])
+    Cube.add([-1,-1,-1])
+    Cube.add([-1,-1,1])
+    Cube.add([-1,1,-1])
+    Cube.add([-1,1,1])
+    Cube.add([1,-1,-1])
+    Cube.add([1,-1,1])
+    Cube.add([1,1,-1])
+    Cube.add([1,1,1])
     
     Cube.setRelativitys([0,1])
     Cube.setRelativitys([0,2])
